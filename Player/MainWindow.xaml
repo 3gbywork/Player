@@ -75,6 +75,6 @@
             </Grid>
         </Border>
 
-        <cef:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" Address="{Binding ElementName=Browse, Path=Text}"/>
+        <cef:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" Address="{Binding ElementName=Browse, Path=Text}" LifeSpanHandler="{x:Static local:CefLifeSpanHandler.Instance}"/>
     </Grid>
 </Window>
