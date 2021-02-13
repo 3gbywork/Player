@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Player">
+
+    <FontFamily x:Key="IconFont">/Player;component/#iconfont</FontFamily>
+
+    <Style x:Key="IconFontToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontFamily" Value="{DynamicResource IconFont}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <TextBlock Text="{TemplateBinding Content}" FontFamily="{TemplateBinding FontFamily}"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="{TemplateBinding FontSize}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
