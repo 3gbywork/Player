@@ -7,7 +7,7 @@
         xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
         Topmost="True"
-        Title="播放器" Height="600" Width="800">
+        Title="{Binding ElementName=Browser, Path=Title, StringFormat='播放器 - {0}'}" Height="600" Width="800">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -51,7 +51,9 @@
                     </ListBox>
                 </Popup>
 
-                <TextBox Grid.Column="1" x:Name="Browse" Padding="5" VerticalContentAlignment="Center" BorderThickness="1,0,1,0"/>
+                <TextBox Grid.Column="1" Padding="5" Text="{Binding ElementName=Browser, Path=Address}" 
+                         ToolTip="{Binding ElementName=Browser, Path=Title}"
+                         VerticalContentAlignment="Center" BorderThickness="1,0,1,0"/>
 
                 <ToggleButton Grid.Column="2" Content="&#xe670;" ToolTip="添加书签" Style="{StaticResource IconFontToggleButtonStyle}" Click="Add_Click"/>
 
@@ -75,6 +77,6 @@
             </Grid>
         </Border>
 
-        <cef:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" Address="{Binding ElementName=Browse, Path=Text}" LifeSpanHandler="{x:Static local:CefLifeSpanHandler.Instance}"/>
+        <cef:ChromiumWebBrowser x:Name="Browser" Grid.Row="1" LifeSpanHandler="{x:Static local:CefLifeSpanHandler.Instance}"/>
     </Grid>
 </Window>
