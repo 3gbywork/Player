@@ -52,7 +52,7 @@ namespace Player
                     offsetY: 40);
 
                 cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                    notificationLifetime: TimeSpan.FromSeconds(3),
+                    notificationLifetime: TimeSpan.FromSeconds(1.5),
                     maximumNotificationCount: MaximumNotificationCount.UnlimitedNotifications());
 
                 cfg.Dispatcher = Application.Current.Dispatcher;

@@ -9,6 +9,21 @@
         Topmost="True"
         Title="{Binding ElementName=Browser, Path=Title, StringFormat='播放器 - {0}'}" Height="600" Width="800">
 
+    <Window.Resources>
+        <Style TargetType="ToggleButton" BasedOn="{StaticResource IconFontToggleButtonStyle}">
+            <Setter Property="Width" Value="35"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.3"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding ElementName=Browser, Path=ReloadCommand}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -18,14 +33,34 @@
         <Border BorderThickness="1" BorderBrush="AliceBlue">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="105"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="35"/>
                     <ColumnDefinition Width="35"/>
                 </Grid.ColumnDefinitions>
 
-                <ToggleButton x:Name="Bookmark" IsThreeState="False" Content="&#xe61c;" ToolTip="书签列表" Style="{StaticResource IconFontToggleButtonStyle}"/>
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton Content="&#xe9bb;" ToolTip="后退" Command="{Binding ElementName=Browser, Path=BackCommand}"/>
+                    <ToggleButton Content="&#xe653;" ToolTip="前进" Command="{Binding ElementName=Browser, Path=ForwardCommand}"/>
+                    <ToggleButton Content="&#xe608;" ToolTip="刷新" Command="{Binding ElementName=Browser, Path=ReloadCommand}"/>
+                </StackPanel>
 
+                <Border Grid.Column="1" BorderThickness="1" Background="#F1F3F4" CornerRadius="8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="35"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Padding="5" Text="{Binding ElementName=Browser, Path=Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 ToolTip="{Binding ElementName=Browser, Path=Title}"
+                                 VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent"/>
+
+                        <ToggleButton Grid.Column="1" Content="&#xe65a;" ToolTip="添加书签" Click="Add_Click"/>
+                    </Grid>
+                </Border>
+
+                <ToggleButton Grid.Column="2" x:Name="Bookmark" Content="&#xe600;" ToolTip="书签列表"/>
                 <Popup IsOpen="{Binding ElementName=Bookmark, Path=IsChecked}" StaysOpen="False"
                        Placement="Bottom" SnapsToDevicePixels="True" PlacementTarget="{Binding ElementName=Bookmark}">
                     <ListBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=Bookmarks}"
@@ -41,7 +76,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" Margin="5,0" FontSize="14"/>
                                         <TextBlock Grid.Column="1" Text="{Binding Url}" VerticalAlignment="Center" Margin="5,0" FontSize="14"/>
-                                        <ToggleButton Grid.Column="2" Content="&#xe61a;" Style="{StaticResource IconFontToggleButtonStyle}" ToolTip="删除书签"
+                                        <ToggleButton Grid.Column="2" Content="&#xe659;" ToolTip="删除书签"
                                                 Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DeleteCommand}"
                                                 CommandParameter="{Binding}"/>
                                     </Grid>
@@ -50,12 +85,6 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Popup>
-
-                <TextBox Grid.Column="1" Padding="5" Text="{Binding ElementName=Browser, Path=Address}" 
-                         ToolTip="{Binding ElementName=Browser, Path=Title}"
-                         VerticalContentAlignment="Center" BorderThickness="1,0,1,0"/>
-
-                <ToggleButton Grid.Column="2" Content="&#xe670;" ToolTip="添加书签" Style="{StaticResource IconFontToggleButtonStyle}" Click="Add_Click"/>
 
                 <ToggleButton Grid.Column="3" Padding="5" IsThreeState="False"
                               IsChecked="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=Topmost}"
@@ -73,7 +102,7 @@
                         </Style>
                     </ToggleButton.Style>
                 </ToggleButton>
-                
+
             </Grid>
         </Border>
 

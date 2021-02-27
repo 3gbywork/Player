@@ -5,7 +5,7 @@
     <FontFamily x:Key="IconFont">/Player;component/#iconfont</FontFamily>
 
     <Style x:Key="IconFontToggleButtonStyle" TargetType="ToggleButton">
-        <Setter Property="FontSize" Value="26"/>
+        <Setter Property="FontSize" Value="18"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontFamily" Value="{DynamicResource IconFont}"/>
         <Setter Property="Template">
