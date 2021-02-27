@@ -24,6 +24,7 @@ namespace Player
         const string CONFIG_FILE = "bookmarks.json";
 
         public ICommand DeleteCommand { get; set; }
+        public ICommand NavigationCommand { get; set; }
         public ObservableCollection<Bookmark> Bookmarks { get; set; }
 
         BookmarkConfig bookmarkConfig;
@@ -62,6 +63,15 @@ namespace Player
         private void InitCommand()
         {
             DeleteCommand = new RelayCommand<Bookmark>(DeleteBookmark);
+            NavigationCommand = new RelayCommand<String>(Navigation);
+        }
+
+        private void Navigation(string addr)
+        {
+            if (!string.IsNullOrWhiteSpace(addr) && Browser.Address != addr)
+            {
+                Browser.Address = addr;
+            }
         }
 
         private void DeleteBookmark(Bookmark bookmark)

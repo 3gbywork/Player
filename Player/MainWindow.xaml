@@ -22,6 +22,7 @@
 
     <Window.InputBindings>
         <KeyBinding Key="F5" Command="{Binding ElementName=Browser, Path=ReloadCommand}"/>
+        <KeyBinding Key="F12" Command="{Binding ElementName=Browser, Path=ViewSourceCommand}"/>
     </Window.InputBindings>
 
     <Grid>
@@ -52,9 +53,13 @@
                             <ColumnDefinition Width="35"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Padding="5" Text="{Binding ElementName=Browser, Path=Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox x:Name="TextAddr" Padding="5" Text="{Binding ElementName=Browser, Path=Address, Mode=OneWay}"
                                  ToolTip="{Binding ElementName=Browser, Path=Title}"
-                                 VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent"/>
+                                 VerticalContentAlignment="Center" BorderThickness="0" Background="Transparent">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window},Path=NavigationCommand}" CommandParameter="{Binding ElementName=TextAddr, Path=Text}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
 
                         <ToggleButton Grid.Column="1" Content="&#xe65a;" ToolTip="添加书签" Click="Add_Click"/>
                     </Grid>
